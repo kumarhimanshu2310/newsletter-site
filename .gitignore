@@ -28,6 +28,9 @@ yarn-error.log*
 # Vercel
 .vercel
 
+# Subscriber data (keep private)
+/data/subscribers.json
+
 # Typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -77,16 +77,19 @@ To add a new newsletter, edit `data/newsletters.ts` and add a new entry to the a
 - Modify colors in `tailwind.config.js`
 - Update metadata in `app/layout.tsx`
 
-### Newsletter Service Integration
+### Newsletter Subscription Storage
 
-The subscription form in `components/Newsletter.tsx` currently simulates a submission. Replace it with your preferred newsletter service (Mailchimp, ConvertKit, Substack, etc.):
+The subscription form stores emails in a **local JSON file** - no configuration needed!
 
-```typescript
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  // Add your API integration here
-}
-```
+**How it works:**
+- Emails are automatically saved to `data/subscribers.json`
+- Each subscriber gets a timestamp and unique ID
+- Duplicate emails are automatically prevented
+- View all subscribers at: `http://localhost:3001/api/subscribe`
+
+**For more details:** See `LOCAL_STORAGE_INFO.md`
+
+This is perfect for development and small sites. For production, consider upgrading to a database or newsletter service.
 
 ## Deployment
 

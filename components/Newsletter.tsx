@@ -11,12 +11,29 @@ export default function Newsletter() {
     e.preventDefault()
     setStatus('loading')
 
-    // Simulate API call - Replace with your actual newsletter service
-    setTimeout(() => {
-      setStatus('success')
-      setMessage('Thanks for subscribing! Check your inbox to confirm.')
-      setEmail('')
-    }, 1000)
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatus('success')
+        setMessage('Thanks for subscribing! You\'re all set.')
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage(data.error || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      setStatus('error')
+      setMessage('Failed to subscribe. Please check your connection and try again.')
+    }
   }
 
   return (
